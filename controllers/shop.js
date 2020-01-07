@@ -242,8 +242,8 @@ exports.getCheckout = (req, res, next) => {
       }),
       // success_url: 'http://localhost:3000/checkout/success',
       // cancel_url: 'http://localhost:3000/checkout/cancel'
-      success_url: req.protocol + '://' + req.get('host') + 'checkout/success',
-      cancel_url: req.protocol + '://' + req.get('host') + 'checkout/cancel'
+      success_url: req.protocol + '://' + req.get('host') + '/checkout/success',
+      cancel_url: req.protocol + '://' + req.get('host') + '/checkout/cancel'
     })
   })
     .then(session => {
