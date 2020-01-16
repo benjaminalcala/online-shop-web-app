@@ -20,6 +20,7 @@ exports.postAddProduct = (req, res, next) => {
   const price = req.body.price;
   const description = req.body.description;
   const errors = validationResult(req);
+  console.log('1')
 
    if(!image){
      return res.status(422).render('admin/edit-product', {
@@ -36,6 +37,7 @@ exports.postAddProduct = (req, res, next) => {
        validationErrors:[]
      });
    }
+   console.log('2')
 
   if(!errors.isEmpty()){
     return res.status(422).render('admin/edit-product', {
@@ -53,6 +55,7 @@ exports.postAddProduct = (req, res, next) => {
     });
   }
 
+  console.log('hello here is the image ', image);
   const imageUrl = image.path;
   
 
