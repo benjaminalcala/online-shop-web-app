@@ -16,8 +16,7 @@ exports.getAddProduct = (req, res, next) => {
 
 exports.postAddProduct = (req, res, next) => {
   const title = req.body.title;
-  console.log('holaaaaaaaaaaaaaaa')
- // const image = req.file;
+  const image = req.file;
   const price = req.body.price;
   const description = req.body.description;
   const errors = validationResult(req);
@@ -54,7 +53,7 @@ exports.postAddProduct = (req, res, next) => {
     });
   }
 
-  const imageUrl = 'image.path';
+  const imageUrl = image.location;
   
 
   const product = new Product({title, imageUrl, price, description, userId: req.user});
