@@ -12,11 +12,21 @@ const multer = require('multer');
 const helmet = require('helmet');
 const compression = require('compression');
 const morgan = require('morgan');
+const aws = require('aws-sdk');
+const multerS3 = require('multer-s3');
 
 const errorController = require('./controllers/error');
 const User = require('./models/user');
 
 const MONGO_URI = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0-amusn.mongodb.net/${process.env.MONGO_DEFAULT_DATABASE}`
+
+aws.config.update({
+  secretAccessKey: '6/SQYHVfVTJ6dwOgpneki+GR92Ady2cNe8cTIjIE',
+  accessKeyId:'AKIAI3LS5JL4HYIGZUXA',
+  region: 'us-west-1'
+})
+
+const s3 = new aws.S3();
 
 const app = express();
 const store = new MongoDBStore({
@@ -25,14 +35,14 @@ const store = new MongoDBStore({
 })
 const csrfProtection = csrf();
 
-const fileStorage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, 'images');
-  },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + '-' + file.originalname);
-  }
-})
+// const fileStorage = multer.diskStorage({
+//   destination: (req, file, cb) => {
+//     cb(null, 'images');
+//   },
+//   filename: (req, file, cb) => {
+//     cb(null, Date.now() + '-' + file.originalname);
+//   }
+// })
 
 const fileFilter = (req, file, cb) => {
   if(file.mimetype === 'image/png' || file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg'){
@@ -56,7 +66,21 @@ app.use(compression());
 app.use(morgan('combined', {stream: accessLogStream}))
 
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(multer({storage: fileStorage, fileFilter: fileFilter}).single('image'));
+app.use(multer({
+  storage: multerS3({
+    s3: s3,
+    bucket: 'ben-online-shop-images',
+    acl:'public-read',
+    metadata: (req, file, cb) => {
+      cb(null, {fieldName: file.fieldname});
+    },
+    contentDisposition: 'attachment',
+    key: (req, file, cb) => {
+      cb(null, Date.now() + '-' + file.originalname)
+    }
+  }), fileFilter: fileFilter}).single('image'));
+
+  //might need to delete file filter
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/images', express.static(path.join(__dirname, 'images')));
