@@ -131,7 +131,7 @@ exports.postEditProduct = (req, res, next) => {
     product.price = updatedPrice;
     if(image){
       fileHelper.deleteFile(product.imageUrl);
-      product.imageUrl = image.path;
+      product.imageUrl = image.location;
     }
     product.description = updatedDesc;
     return product.save().then(result => {
