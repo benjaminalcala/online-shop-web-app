@@ -4,7 +4,6 @@ const Product = require('../models/product');
 const fileHelper = require('../util/file');
 
 exports.getAddProduct = (req, res, next) => {
-  console.log('hemmllllo');
   res.render('admin/edit-product', {
     pageTitle: 'Add Product',
     path: '/admin/add-product',
@@ -16,14 +15,12 @@ exports.getAddProduct = (req, res, next) => {
 };
 
 exports.postAddProduct = (req, res, next) => {
-  console.log('10');
-  console.log(req);
   const title = req.body.title;
-  const image = req.file;
+  console.log('holaaaaaaaaaaaaaaa')
+ // const image = req.file;
   const price = req.body.price;
   const description = req.body.description;
   const errors = validationResult(req);
-  console.log('1')
 
    if(!image){
      return res.status(422).render('admin/edit-product', {
@@ -40,7 +37,6 @@ exports.postAddProduct = (req, res, next) => {
        validationErrors:[]
      });
    }
-   console.log('2')
 
   if(!errors.isEmpty()){
     return res.status(422).render('admin/edit-product', {
@@ -58,8 +54,7 @@ exports.postAddProduct = (req, res, next) => {
     });
   }
 
-  console.log('hello here is the image ', image);
-  const imageUrl = image.path;
+  const imageUrl = 'image.path';
   
 
   const product = new Product({title, imageUrl, price, description, userId: req.user});
