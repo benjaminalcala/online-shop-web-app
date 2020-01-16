@@ -4,6 +4,7 @@ const Product = require('../models/product');
 const fileHelper = require('../util/file');
 
 exports.getAddProduct = (req, res, next) => {
+  console.log('hemmllllo');
   res.render('admin/edit-product', {
     pageTitle: 'Add Product',
     path: '/admin/add-product',
@@ -15,6 +16,8 @@ exports.getAddProduct = (req, res, next) => {
 };
 
 exports.postAddProduct = (req, res, next) => {
+  console.log('10');
+  console.log(req);
   const title = req.body.title;
   const image = req.file;
   const price = req.body.price;
