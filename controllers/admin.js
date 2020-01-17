@@ -130,7 +130,7 @@ exports.postEditProduct = (req, res, next) => {
     product.title = updatedTitle;
     product.price = updatedPrice;
     if(image){
-      fileHelper.deleteFile(product.imageUrl);
+      //fileHelper.deleteFile(product.imageUrl);
       product.imageUrl = image.location;
     }
     product.description = updatedDesc;
@@ -169,7 +169,7 @@ exports.deleteProduct = (req, res, next) => {
     if(!product){
       return next(new Error('No product found.'))
     }
-    fileHelper.deleteFile(product.imageUrl);
+    //fileHelper.deleteFile(product.imageUrl);
     return Product.deleteOne({_id: prodId, userId: req.user._id})
   })
   .then(result => {
