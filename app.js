@@ -21,8 +21,8 @@ const User = require('./models/user');
 const MONGO_URI = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0-amusn.mongodb.net/${process.env.MONGO_DEFAULT_DATABASE}`
 
 aws.config.update({
-  secretAccessKey: '1zKbIaLBGyAmgf8WZ6qNrfz20tiKVLRsT/J6Y5ht',
-  accessKeyId:'AKIAJ6ENM7YP5BPT3DAQ',
+  secretAccessKey: process.env.AMAZON_SECRET_ACCESS_KEY,
+  accessKeyId:process.env.AMAZON_ACCESS_KEY_ID,
   region: 'us-west-1'
 })
 
