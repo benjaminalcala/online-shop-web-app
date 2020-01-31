@@ -26,6 +26,8 @@ aws.config.update({
   region: 'us-west-1'
 })
 
+//was this updated?
+
 const s3 = new aws.S3();
 
 const app = express();
