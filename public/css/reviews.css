@@ -1,0 +1,76 @@
+.review-container {
+    margin-left: 40%;
+    width: 20%;
+}
+.review-summary-container {
+    margin-left: 45%;
+}
+
+
+.review-headline{
+    margin-bottom: 5px;
+}
+
+.stars{
+    /* background-image: url('../../images/stars-review.png'); */
+    background-image: url('https://ben-online-blog-images.s3-us-west-1.amazonaws.com/stars-review.png');
+    width: 80px;
+    height: 18px;
+    background-repeat: no-repeat;
+    display: inline-block;
+    margin: 0px
+
+}
+
+.percentage{
+    margin-left: 45%
+}
+
+.avg-10 {
+    background-position: -74px -9px ;
+}
+.avg-15 {
+    background-position: -228px -9px ;
+}
+.avg-20 {
+    background-position: -58px -9px ;
+}
+.avg-25 {
+    background-position: -212px -9px ;
+}
+.avg-30 {
+    background-position: -42px -9px ;
+}
+.avg-35 {
+    background-position: -196px -9px ;
+}
+.avg-40 {
+    background-position: -26px -9px ;
+}
+.avg-45 {
+    background-position: -180px -9px ;  
+}
+
+.avg-50 {
+    background-position: -10px -9px ;
+}
+
+
+.stars-1{
+    background-position: -74px -9px ;
+
+}
+.stars-2{
+    background-position: -58px -9px ;
+
+}
+.stars-3{
+    background-position: -42px -9px ;
+
+}
+.stars-4{
+    background-position: -26px -9px ;
+}
+.stars-5{
+    background-position: -10px -9px ;
+}

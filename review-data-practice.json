@@ -1,0 +1,20 @@
+{
+    "id": "auto",
+    "productId": "productid",
+    "totalReviews": 0,
+    "stars": [
+        {"1": 0},
+        {"2": 0},
+        {"3": 0},
+        {"4": 0},
+        {"5": 0}
+    ],
+    "avgRating": null,
+    "reviews": [
+        {
+            "rating": 1,
+            "title": "amazing",
+            "review": "iloved it"
+        }
+    ]
+}

@@ -31,4 +31,8 @@ router.get('/checkout/cancel', shopController.getCheckout);
 
 router.get('/checkout', isAuth, shopController.getCheckout);
 
+router.post('/review', isAuth, shopController.postReview)
+
+router.post('/process-review', isAuth, shopController.postProcessReview)
+
 module.exports = router;

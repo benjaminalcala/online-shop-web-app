@@ -1,0 +1,43 @@
+<%- include('../includes/head.ejs') %>
+    <link rel="stylesheet" href="/css/forms.css">
+    <link rel="stylesheet" href="/css/product.css">
+</head>
+
+    <body>
+        <%- include('../includes/navigation.ejs') %>
+        <main>
+            <h1><%= product.title %></h1>
+            <hr>
+            <form class="product-form" action="/process-review" method="POST" enctype="multipart/form-data">
+                <div class="form-control">
+                    <label for="rating">Rating (1 - 5)</label>
+                    <input 
+                        class = "title"
+                        type="number" 
+                        name="rating" 
+                        id="rating" 
+                        min = '1'
+                        max ='5'
+                    >
+                </div>
+                <div class="form-control">
+                    <label for="headline">Headline</label>
+                    <input 
+                        type="text" 
+                        name="headline" 
+                        id="headline" >
+                </div>
+                <div class="form-control">
+                    <label for="review">Review</label>
+                    <textarea 
+                        class = "review"
+                        name="review" 
+                        id="review" 
+                        rows="5"></textarea>
+                </div>
+                <input type='hidden' name='_csrf' value='<%= csrfToken %>'>
+                <input type="hidden" name="productId" value="<%= product._id %>">
+                <button class="btn" type="submit">Submit Review</button>
+            </form>
+        </main>
+        <%- include('../includes/end.ejs') %>

@@ -298,3 +298,59 @@ exports.getCheckoutSuccess = (req, res, next) => {
       return next(error);
     });
 }
+
+exports.postReview = (req, res, next) => {
+  const prodId = req.body.productId;
+  Product.findById(prodId)
+  .then(product => {
+    res.render('shop/write-review', {
+      product: product,
+      pageTitle: product.title,
+      path: '/products'
+    })
+
+  })
+  .catch(err => {
+    const error = new Error(err);
+    error.httpsStatusCode = 500;
+    return next(error)
+  })
+
+}
+
+exports.postProcessReview = (req, res, next) => {
+  const prodId = req.body.productId;
+
+  const rating = req.body.rating;
+  const headline = req.body.headline;
+  const review = req.body.review;
+
+  Product.findById(prodId)
+  .then(product => {
+    if(product.totalReviews === 0){
+      console.log('here')
+      product.avgRating = rating;  
+    }else{
+      const avg = (product.avgRating * product.totalReviews + +rating) / (product.totalReviews + 1);
+      product.avgRating = Math.round(avg * 10) / 10;
+    }
+    product.totalReviews++;
+    product.stars[rating-1].amount++;
+    product.reviews.push({rating, title:headline, review})
+    return product.save()
+  })
+  .then(product => {
+    res.render('shop/product-detail', {
+      product: product,
+      pageTitle: product.title,
+      path: '/products'
+    });
+  })
+  .catch(err => {
+    const error = new Error(err);
+    error.httpsStatusCode = 500;
+    return next(error)
+  })
+
+
+}

@@ -1,5 +1,6 @@
 <%- include('../includes/head.ejs') %>
     <link rel="stylesheet" href="/css/product.css">
+    <link rel="stylesheet" href="/css/reviews.css">
 </head>
 
 <body>
@@ -19,10 +20,18 @@
                         </div>
                         <div class="card__content">
                             <h2 class="product__price">$<%= product.price %></h2>
+                            <div class='centered'>
+                                <%if(product.totalReviews === 0){ %>
+                                    <p>No reviews</p>
+                                <% }else {%>
+                                <div class="stars avg-<%= (Math.round(product.avgRating * 2) / 2).toFixed(1) * 10 %>"></div>
+                                <% }%>
+                            </div>
+                            
                             <p class="product__description"><%= product.description %></p>
                         </div>
                         <div class="card__actions">
-                            <a href="/products/<%= product._id %>" class="btn">Details</a>
+                            <a href="/products/<%= product._id %>" class="btn">Reviews</a>
                             <% if(isAuthenticated) { %>
                                 <%- include('../includes/add-to-cart.ejs', {product: product}) %>
                             <% } %>

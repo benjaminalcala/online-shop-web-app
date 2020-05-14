@@ -54,9 +54,32 @@ exports.postAddProduct = (req, res, next) => {
   }
 
   const imageUrl = image.location;
-  
 
-  const product = new Product({title, imageUrl, price, description, userId: req.user});
+  const stars = [
+    {
+      rating: 1,
+      amount: 0
+    },
+    {
+      rating: 2,
+      amount: 0
+    },
+    {
+      rating: 3,
+      amount: 0
+    },
+    {
+      rating: 4,
+      amount: 0
+    },
+    {
+      rating: 5,
+      amount: 0
+    },
+ 
+]
+
+  const product = new Product({title, imageUrl, price, description, userId: req.user, totalReviews: 0, avgRating: 0, stars});
   
   product
     .save()

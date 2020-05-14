@@ -1,4 +1,6 @@
 <%- include('../includes/head.ejs') %>
+
+<link rel="stylesheet" href="/css/reviews.css">
     </head>
 
     <body>
@@ -12,7 +14,49 @@
             <h2>$<%= product.price %></h2>
             <p><%= product.description %></p>
             <% if(isAuthenticated) { %>
+                <form action="/review" method="post">
+                    <button class="btn" type="submit">Write a Review</button>
+                    <input type='hidden' name='_csrf' value='<%= csrfToken %>'>
+                    <input type="hidden" name="productId" value="<%= product._id %>">
+                </form>
                 <%- include('../includes/add-to-cart.ejs') %>
             <% } %>
+            
+            
         </main>
+        <hr>
+        <h3 class='centered'>Reviews</h3>
+        <hr>
+        <% if(product.totalReviews === 0){ %>
+            <p class="centered">Be the first to review...</p>
+        <% } else { %>
+        <div class='centered '>
+            <div class="stars avg-<%= (Math.round(product.avgRating * 2) / 2).toFixed(1) * 10 %>"></div>
+            <h4 ><%= product.avgRating %> out of 5</h4>
+            <h5>5 (<%= Math.round((product.stars[4].amount/product.totalReviews) * 100) %>% of reviews)</h5>
+            <h5>4 (<%= Math.round((product.stars[3].amount/product.totalReviews) * 100) %>% of reviews)</h5>
+            <h5>3 (<%= Math.round((product.stars[2].amount/product.totalReviews) * 100) %>% of reviews)</h5>
+            <h5>2 (<%= Math.round((product.stars[1].amount/product.totalReviews) * 100) %>% of reviews)</h5>
+            <h5>1 (<%= Math.round((product.stars[0].amount/product.totalReviews) * 100) %>% of reviews)</h5>
+            
+        </div>
+        <hr>
+        <div class='review-container'>
+                <% for (let review of product.reviews) { %>
+                    <h4 class=review-headline><%= review.title%></h4>
+                    <div class="stars stars-<%= review.rating %>"></div>
+                    <p><%= review.review%></p>
+    
+                <% } %>
+            <% } %>
+        </div>
+
+
+        
+
+        
+
+
+
+
         <%- include('../includes/end.ejs') %>
